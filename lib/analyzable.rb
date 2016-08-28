@@ -16,11 +16,21 @@ module Analyzable
   end
 
   def print_report(products)
-    report = {}
-    products.each do |product|
-      puts "Brand: #{product.brand}, Name: #{product.name}, Price #{product.price}"
+    report = "Average price: #{average_price(products).to_s}\n"
+
+    brand_total = count_by_brand(products)
+    name_total = count_by_name(products)
+
+    report += "\n Inventory by Brand:"
+    brand_total.each do |brand, total|
+      report += "\n    - #{brand}: #{total} "
     end
-    return report.to_s
+
+    report += "\n Inventory by Name:"
+    name_total.each do |name, total|
+      report += "\n    - #{name}: #{total} "
+    end
+    report 
   end
 
   def count_by_brand(products)
